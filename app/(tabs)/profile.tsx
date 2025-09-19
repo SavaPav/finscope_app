@@ -50,59 +50,104 @@ export default function ProfileScreen() {
 
   if (loading) {
     return (
-      <SafeAreaView className="flex-1 items-center justify-center bg-slate-100">
-        <Text className="text-slate-600">Loading…</Text>
+      <SafeAreaView className="flex-1 items-center justify-center bg-slate-900">
+        <Text className="text-slate-300">Loading…</Text>
       </SafeAreaView>
     );
   }
 
   return (
-    <SafeAreaView className="flex-1 bg-slate-100">
-      <View className="mx-6 mt-4 rounded-2xl bg-white border border-slate-200 p-5">
-        {/* Avatar + email */}
-        <View className="flex-row items-center">
-          <MaterialIcons name="account-circle" size={56} color="#334155" />
-          <View className="ml-3">
-            <Text className="text-slate-900 text-lg font-semibold">
-              {userDoc?.name ?? "User"}
-            </Text>
-            <Text className="text-slate-500">{userDoc?.email ?? user?.email ?? "-"}</Text>
+    <SafeAreaView className="flex-1 bg-slate-900">
+      {/* Header */}
+      <View className="px-6 mt-8 mb-8">
+        <Text className="text-center text-4xl font-extrabold tracking-tight text-slate-100">
+          <Text className="text-indigo-400">Profile</Text> Settings
+        </Text>
+        <Text className="text-center text-slate-400 mt-1">
+          Manage your account information
+        </Text>
+      </View>
+
+      {/* Main Profile Card */}
+      <View 
+        className="mx-6 rounded-3xl bg-slate-800/90 border border-slate-700/60 p-6"
+        style={{
+          elevation: 8,
+          shadowColor: "#000",
+          shadowOpacity: 0.3,
+          shadowRadius: 12,
+          shadowOffset: { width: 0, height: 6 },
+        }}
+      >
+        {/* Avatar Section */}
+        <View className="items-center mb-6">
+          <View 
+            className="w-20 h-20 rounded-full bg-indigo-600/20 border-3 border-indigo-500/40 items-center justify-center mb-3"
+            style={{
+              elevation: 4,
+              shadowColor: "#6366f1",
+              shadowOpacity: 0.3,
+              shadowRadius: 2,
+              shadowOffset: { width: 0, height: 4 },
+            }}
+          >
+            <MaterialIcons name="account-circle" size={64} color="#6366f1" />
           </View>
+          <Text className="text-slate-100 text-xl font-bold">
+            {userDoc?.name ?? "User"}
+          </Text>
+          <Text className="text-slate-400 text-sm">
+            {userDoc?.email ?? user?.email ?? "-"}
+          </Text>
         </View>
 
-        {/* Name row / editor */}
-        <View className="mt-5">
-          <Text className="text-slate-500 text-xs mb-1">Display name</Text>
+        {/* Divider */}
+        <View className="h-px bg-slate-700/50 mb-6" />
+
+        {/* Display Name Section */}
+        <View className="mb-6">
+          <View className="flex-row items-center mb-2">
+            <MaterialIcons name="edit" size={16} color="#6366f1" />
+            <Text className="text-indigo-400 text-sm font-semibold ml-2">Display Name</Text>
+          </View>
 
           {!editing ? (
-            <View className="flex-row items-center justify-between">
-              <Text className="text-slate-900 text-base font-medium">
+            <View className="flex-row items-center justify-between bg-slate-700/30 rounded-xl px-4 py-3 border border-slate-600/40">
+              <Text className="text-slate-100 text-base font-medium">
                 {userDoc?.name ?? "—"}
               </Text>
               <Pressable
                 onPress={() => setEditing(true)}
-                className="px-3 py-1.5 rounded-xl border border-slate-300 bg-slate-100"
+                className="px-3 py-1.5 rounded-lg border border-indigo-500/50 bg-indigo-600/20"
               >
-                <Text className="text-slate-700 font-semibold text-xs">Edit</Text>
+                <Text className="text-indigo-300 font-semibold text-xs">Edit</Text>
               </Pressable>
             </View>
           ) : (
             <View>
               <TextInput
-                className="rounded-xl px-4 py-3 bg-slate-100 text-slate-900 border border-slate-300"
-                placeholder="Your name"
+                className="rounded-xl px-4 py-3 bg-slate-700/50 text-slate-100 border-2 border-indigo-500/40 mb-3"
+                placeholder="Enter your name"
                 placeholderTextColor="#64748b"
                 value={newName}
                 onChangeText={setNewName}
+                style={{ fontSize: 16 }}
               />
-              <View className="flex-row gap-2 mt-3">
+              <View className="flex-row gap-3">
                 <Pressable
                   disabled={saving}
                   onPress={saveName}
-                  className="flex-1 bg-indigo-600 rounded-2xl py-3 items-center"
+                  className="flex-1 bg-indigo-600 rounded-xl py-3 items-center"
+                  style={{
+                    elevation: 4,
+                    shadowColor: "#6366f1",
+                    shadowOpacity: 0.3,
+                    shadowRadius: 6,
+                    shadowOffset: { width: 0, height: 3 },
+                  }}
                 >
-                  <Text className="text-white font-semibold">
-                    {saving ? "Saving…" : "Save"}
+                  <Text className="text-white font-bold">
+                    {saving ? "Saving…" : "Save Changes"}
                   </Text>
                 </Pressable>
                 <Pressable
@@ -111,33 +156,51 @@ export default function ProfileScreen() {
                     setNewName(userDoc?.name ?? "");
                     setEditing(false);
                   }}
-                  className="flex-1 rounded-2xl py-3 items-center border border-slate-300 bg-slate-100"
+                  className="flex-1 rounded-xl py-3 items-center border border-slate-600 bg-slate-700/50"
                 >
-                  <Text className="text-slate-700 font-semibold">Cancel</Text>
+                  <Text className="text-slate-300 font-bold">Cancel</Text>
                 </Pressable>
               </View>
             </View>
           )}
         </View>
 
-        {/* Other info */}
-        <View className="mt-5 gap-2">
-          <Text className="text-slate-700">
-            Age: <Text className="font-medium">{userDoc?.age ?? "-"}</Text>
-          </Text>
-          <Text className="text-slate-700">
-            UID: <Text className="font-medium">{user?.uid ?? "-"}</Text>
-          </Text>
+        {/* Divider */}
+        <View className="h-px bg-slate-700/50 mb-6" />
+
+        {/* Account Info */}
+        <View className="mb-6">
+          <View className="flex-row items-center mb-3">
+            <MaterialIcons name="info-outline" size={16} color="#6366f1" />
+            <Text className="text-indigo-400 text-sm font-semibold ml-2">Account Information</Text>
+          </View>
+          
+          <View className="bg-slate-700/20 rounded-xl p-4 border border-slate-600/30">
+            <View className="flex-row justify-between items-center mb-2">
+              <Text className="text-slate-400 text-sm">Age</Text>
+              <Text className="font-medium text-slate-100">{userDoc?.age ?? "Not set"}</Text>
+            </View>
+            <View className="flex-row justify-between items-center">
+              <Text className="text-slate-400 text-sm">User ID</Text>
+              <Text className="font-medium text-slate-100 text-xs">
+                {user?.uid}
+              </Text>
+            </View>
+          </View>
         </View>
 
-        {/* Logout */}
+        {/* Logout Button */}
         <Pressable
           onPress={doLogout}
-          className="mt-6 bg-indigo-600 rounded-2xl py-3 items-center"
+          className="bg-red-900 rounded-xl py-4 items-center flex-row justify-center"
         >
-          <Text className="text-white font-semibold">Log out</Text>
+          <MaterialIcons name="logout" size={20} color="white" />
+          <Text className="text-white font-bold text-base ml-2">Sign Out</Text>
         </Pressable>
       </View>
+
+      {/* Bottom Spacing */}
+      <View className="h-8" />
     </SafeAreaView>
   );
 }

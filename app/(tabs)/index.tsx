@@ -119,7 +119,6 @@ export default function HomeScreen() {
 
         <View className="flex-row items-center justify-between">
           <View className="flex-row items-center">
-
             <View className={`w-11 h-11 rounded-full items-center justify-center ${tone.bg} border-2 ${tone.border}`}>
               <MaterialIcons name={iconName as any} size={20} color={tone.iconHex} />
             </View>
@@ -136,8 +135,8 @@ export default function HomeScreen() {
 
           <View className={`px-3 py-1 rounded-xl ${tone.pillBg} border-2 ${tone.pillBorder}`}>
             <Text className={`font-extrabold ${tone.text}`}>
-              {isIncome ? "+" : "-"}
-              {item.amount}
+              {isIncome ? "+" : "-"} 
+              {item.amount} RSD
             </Text>
           </View>
         </View>
@@ -222,8 +221,7 @@ export default function HomeScreen() {
       </View>
 
 
-      <View className="mx-6 mt-4 flex-1">
-        <Text className="text-slate-100 text-lg font-semibold mb-2">Your transactions</Text>
+      <View className="mx-6 mt-5 flex-1">
         <FlatList
           data={txns}
           keyExtractor={(item) => item.id}
