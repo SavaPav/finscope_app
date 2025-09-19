@@ -1,0 +1,48 @@
+// Firestore rules
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{db}/documents {
+
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isOwner(userId) {
+      return isSignedIn() && request.auth.uid == userId;
+    }
+
+    // users – korisnik sme čitati/menjati samo svoj dokument
+    match /users/{userId} {
+      allow read, create: if isOwner(userId);
+      allow update, delete: if isOwner(userId);
+
+      // Možeš i dodatno ograničiti koja polja sme da upiše pri create/update
+      // npr. zabraniti korisniku da menja 'email' ručno itd. po potrebi
+    }
+
+    // transactionTypes – javno čitljivo, ali se ne menja iz klijenta
+    match /transactionTypes/{typeId} {
+      allow read: if true;
+      allow write: if false; // menjaš ručno u konzoli ili preko admin backenda
+    }
+
+    // transactions – samo vlasnik (po userId) sme da radi CRUD nad svojim transakcijama
+    match /transactions/{txnId} {
+      allow create: if isSignedIn()
+        // vlasništvo: userId u dokumentu mora biti isti kao auth.uid
+        && request.resource.data.userId == request.auth.uid
+        // obavezna polja
+        && request.resource.data.keys().hasAll(['title','amount','typeId','userId','createdAt'])
+        // validacije tipova i vrednosti
+        && (request.resource.data.title is string && request.resource.data.title.size() > 0)
+        && (request.resource.data.amount is number)
+        && (request.resource.data.typeId is string)
+        // FK: tip mora postojati
+        && exists(/databases/$(db)/documents/transactionTypes/$(request.resource.data.typeId));
+
+      allow read, update, delete: if isSignedIn()
+        // vlasnik transakcije je onaj čiji je userId
+        && resource.data.userId == request.auth.uid;
+    }
+  }
+}
