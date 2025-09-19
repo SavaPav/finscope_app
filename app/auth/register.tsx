@@ -60,7 +60,7 @@ export default function RegisterScreen() {
     <View className="flex-1 bg-slate-950 px-6 justify-center">
       <Animated.View style={cardStyle} className="w-full">
         <Text className="text-center text-3xl font-extrabold tracking-tight text-white">
-          Welcome to FinScope
+          Welcome to <Text className="text-indigo-500">Fin</Text>Scope
         </Text>
         <Text className="text-center text-slate-400 mt-2 mb-6">Create your account</Text>
 

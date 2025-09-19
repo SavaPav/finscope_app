@@ -45,6 +45,8 @@ export default function RootLayout() {
             <Stack.Screen name="auth/login" options={{ headerShown: false }} />
             <Stack.Screen name="auth/register" options={{ headerShown: false }} />
             <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+            <Stack.Screen name="new-transaction" options={{ headerShown: false, presentation: "modal" }} />
+            <Stack.Screen name="edit-transaction/[id]" options={{ headerShown: false, presentation: "modal" }} />
           </Stack>
         </Gate>
         <StatusBar style="auto" />

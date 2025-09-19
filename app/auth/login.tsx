@@ -49,9 +49,9 @@ export default function LoginScreen() {
   return (
     <View className="flex-1 bg-slate-950 px-6 justify-center">
       <Animated.View style={cardStyle} className="w-full">
-        <Text className="text-center text-3xl font-extrabold tracking-tight text-white">
-          Welcome to FinScope
-        </Text>
+      <Text className="text-center text-3xl font-extrabold tracking-tight text-white">
+        Welcome to <Text className="text-indigo-500">Fin</Text>Scope
+      </Text>
         <Text className="text-center text-slate-400 mt-2 mb-6">Sign in to continue</Text>
 
         <View className="bg-slate-900/70 rounded-2xl p-5 border border-slate-800">
