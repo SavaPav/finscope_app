@@ -1,6 +1,7 @@
 import { db } from "@/lib/firebase";
 import { useAuth } from "@/providers/authProvider";
 import type { TransactionDoc } from "@/types/models";
+import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import { collection, onSnapshot, query, where } from "firebase/firestore";
 import { useEffect, useMemo, useState } from "react";
 import { FlatList, Text, View } from "react-native";
@@ -9,7 +10,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 type Txn = TransactionDoc & { id: string };
 
 export default function StatisticsScreen() {
-  const { user, loading } = useAuth();
+  const { user, loading, userDoc } = useAuth();
   const [txns, setTxns] = useState<Txn[]>([]);
 
   useEffect(() => {
@@ -43,10 +44,21 @@ export default function StatisticsScreen() {
 
   return (
     <SafeAreaView className="flex-1 bg-slate-100">
+      <View className="bg-white border border-slate-200 p-4 flex-row items-center">
+        <MaterialIcons name="account-circle" size={40} color="#334155" />
+        <View className="ml-3">
+          <Text className="text-slate-900 font-semibold text-xl">
+            {userDoc?.name ?? "User"}
+          </Text>
+          <Text className="text-slate-500 text-xs">
+            {userDoc?.email ?? user?.email ?? "-"}
+          </Text>
+        </View>
+      </View>
       {/* Header */}
-      <View className="px-6 mt-3">
-        <Text className="text-center text-3xl font-extrabold tracking-tight text-slate-900">
-          Statistics
+      <View className="px-6 mt-6">
+      <Text className="text-center text-4xl font-extrabold tracking-tight text-slate-900">
+          <Text className="text-indigo-600">Statistics</Text> Page
         </Text>
         <Text className="text-center text-slate-500 mt-1">Income vs Expense overview</Text>
       </View>
