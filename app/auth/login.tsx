@@ -1,4 +1,5 @@
-import { signIn } from "@/auth/login"; // ili relativno: "../../auth/login"
+import { signIn } from "@/auth/login";
+import { Link, router } from "expo-router";
 import { useState } from "react";
 import { Alert, Pressable, Text, TextInput, View } from "react-native";
 
@@ -9,8 +10,9 @@ export default function LoginScreen() {
   const doLogin = async () => {
     try {
       await signIn(email.trim(), password);
+      router.replace("/");
     } catch (e: any) {
-      Alert.alert("Login greška", e?.message ?? String(e));
+      Alert.alert("Greška pri prijavi", e?.message ?? String(e));
     }
   };
 
@@ -39,9 +41,9 @@ export default function LoginScreen() {
         <Text className="text-white font-semibold">Sign in</Text>
       </Pressable>
 
-      <View className="mt-6 items-center">
-        {/* <Link href="/auth/register" className="text-blue-600">Nemaš nalog? Registruj se</Link> */}
-      </View>
+      <Link href="/auth/register" className="text-blue-600">
+        Nemaš nalog? Registruj se
+      </Link>
     </View>
   );
 }
