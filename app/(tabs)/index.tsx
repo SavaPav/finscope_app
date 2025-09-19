@@ -207,7 +207,7 @@ export default function HomeScreen() {
           className="flex-row items-center gap-1 px-3 py-2 rounded-xl border border-slate-600 bg-slate-700/50"
         >
           <MaterialIcons name="logout" size={18} color="#cbd5e1" />
-          <Text className="text-slate-200 font-semibold">Sing Out</Text>
+          <Text className="text-slate-200 font-semibold">Sign Out</Text>
         </Pressable>
       </View>
 
