@@ -30,7 +30,7 @@ export default function EditTransactionModal() {
         setTypeId(data.typeId as TransactionTypeName);
         setDescription(data.description ?? "");
       } catch (e: any) {
-        Alert.alert("Greška", e?.message ?? String(e));
+        Alert.alert("Error", e?.message ?? String(e));
       } finally {
         setLoading(false);
       }
@@ -43,7 +43,7 @@ export default function EditTransactionModal() {
       if (!id) return;
       const amt = Number(amount);
       if (!title.trim() || !Number.isFinite(amt) || amt <= 0) {
-        return Alert.alert("Greška", "Unesi naslov i pozitivan iznos.");
+        return Alert.alert("Error", "Insert correct data.");
       }
       setSaving(true);
       const ref = doc(db, "transactions", String(id));
@@ -56,7 +56,7 @@ export default function EditTransactionModal() {
       } as Partial<TransactionDoc>);
       router.back();
     } catch (e: any) {
-      Alert.alert("Greška pri izmeni", e?.message ?? String(e));
+      Alert.alert("Update Error", e?.message ?? String(e));
     } finally {
       setSaving(false);
     }

@@ -22,7 +22,7 @@ export default function ProfileScreen() {
     try {
       await signOut(auth);
     } catch (e: any) {
-      Alert.alert("Greška pri odjavi", e?.message ?? String(e));
+      Alert.alert("Error", e?.message ?? String(e));
     }
   };
 
@@ -30,9 +30,9 @@ export default function ProfileScreen() {
     try {
       const trimmed = newName.trim();
       if (!trimmed || trimmed.length < 2) {
-        return Alert.alert("Greška", "Ime mora imati bar 2 znaka.");
+        return Alert.alert("Error", "Name needs to have at least 2 characters.");
       }
-      if (!user) return Alert.alert("Nisi prijavljen.");
+      if (!user) return Alert.alert("Login failed.");
 
       setSaving(true);
       // 1) Firestore: users/{uid}.name
@@ -42,7 +42,7 @@ export default function ProfileScreen() {
 
       setEditing(false);
     } catch (e: any) {
-      Alert.alert("Greška pri čuvanju", e?.message ?? String(e));
+      Alert.alert("Error", e?.message ?? String(e));
     } finally {
       setSaving(false);
     }
@@ -57,9 +57,9 @@ export default function ProfileScreen() {
   }
 
   return (
-    <SafeAreaView className="flex-1 bg-slate-900">
-      {/* Header */}
-      <View className="px-6 mt-8 mb-8">
+    <SafeAreaView className="flex-1 bg-slate-950">
+
+      <View className="px-6 mt-10 mb-6">
         <Text className="text-center text-4xl font-extrabold tracking-tight text-slate-100">
           <Text className="text-indigo-400">Profile</Text> Settings
         </Text>
@@ -68,7 +68,6 @@ export default function ProfileScreen() {
         </Text>
       </View>
 
-      {/* Main Profile Card */}
       <View 
         className="mx-6 rounded-3xl bg-slate-800/90 border border-slate-700/60 p-6"
         style={{
@@ -79,7 +78,7 @@ export default function ProfileScreen() {
           shadowOffset: { width: 0, height: 6 },
         }}
       >
-        {/* Avatar Section */}
+
         <View className="items-center mb-6">
           <View 
             className="w-20 h-20 rounded-full bg-indigo-600/20 border-3 border-indigo-500/40 items-center justify-center mb-3"
@@ -101,10 +100,10 @@ export default function ProfileScreen() {
           </Text>
         </View>
 
-        {/* Divider */}
+
         <View className="h-px bg-slate-700/50 mb-6" />
 
-        {/* Display Name Section */}
+
         <View className="mb-6">
           <View className="flex-row items-center mb-2">
             <MaterialIcons name="edit" size={16} color="#6366f1" />
@@ -165,10 +164,10 @@ export default function ProfileScreen() {
           )}
         </View>
 
-        {/* Divider */}
+
         <View className="h-px bg-slate-700/50 mb-6" />
 
-        {/* Account Info */}
+
         <View className="mb-6">
           <View className="flex-row items-center mb-3">
             <MaterialIcons name="info-outline" size={16} color="#6366f1" />
@@ -189,7 +188,7 @@ export default function ProfileScreen() {
           </View>
         </View>
 
-        {/* Logout Button */}
+
         <Pressable
           onPress={doLogout}
           className="bg-red-900 rounded-xl py-4 items-center flex-row justify-center"
@@ -199,7 +198,7 @@ export default function ProfileScreen() {
         </Pressable>
       </View>
 
-      {/* Bottom Spacing */}
+
       <View className="h-8" />
     </SafeAreaView>
   );

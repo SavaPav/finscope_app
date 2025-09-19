@@ -1,5 +1,5 @@
 import { signUp } from "@/auth/register";
-import { Link, router } from "expo-router";
+import { Link } from "expo-router";
 import { useEffect, useState } from "react";
 import { Alert, Pressable, Text, TextInput, View } from "react-native";
 import Animated, {
@@ -17,7 +17,7 @@ export default function RegisterScreen() {
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
 
-  // enter anim
+  // Animacije
   const opacity = useSharedValue(0);
   const translateY = useSharedValue(24);
   const btnScale = useSharedValue(1);
@@ -48,9 +48,9 @@ export default function RegisterScreen() {
 
       setLoading(true);
       await signUp(name.trim(), email.trim(), password, ageNum);
-      router.replace("/"); // Gate pusta kada se kreira users/{uid}
+      // router.replace("/"); // Gate pusta kada se kreira users/{uid}
     } catch (e: any) {
-      Alert.alert("Registracija greška", e?.message ?? "Proveri podatke i pokušaj ponovo.");
+      Alert.alert("Register Error", e?.message ?? "Check data and try again.");
     } finally {
       setLoading(false);
     }

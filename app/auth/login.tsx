@@ -1,5 +1,5 @@
 import { signIn } from "@/auth/login";
-import { Link, router } from "expo-router";
+import { Link } from "expo-router";
 import { useEffect, useState } from "react";
 import { Alert, Pressable, Text, TextInput, View } from "react-native";
 import Animated, {
@@ -15,7 +15,7 @@ export default function LoginScreen() {
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
 
-  // enter anim
+
   const opacity = useSharedValue(0);
   const translateY = useSharedValue(24);
   const btnScale = useSharedValue(1);
@@ -38,7 +38,7 @@ export default function LoginScreen() {
     try {
       setLoading(true);
       await signIn(email.trim(), password);
-      router.replace("/"); // ide na Home (/(tabs)/index.tsx)
+      // router.replace("/"); // ide na Home (/(tabs)/index.tsx)
     } catch (e: any) {
       Alert.alert("Login Error", "There seems to be an error with your login details. Please check your username and password and try again.");
     } finally {

@@ -52,8 +52,7 @@ export default function StatisticsScreen() {
   }
 
   return (
-    <SafeAreaView className="flex-1 bg-slate-900">
-      {/* Header bar with user info */}
+    <SafeAreaView className="flex-1 bg-slate-950">
       <View className="bg-slate-800 border border-slate-700/50 p-3 flex-row items-center justify-between">
         <View className="flex-row items-center">
           <MaterialIcons name="account-circle" size={40} color="#6366f1" />
@@ -72,11 +71,10 @@ export default function StatisticsScreen() {
           className="flex-row items-center gap-1 px-3 py-2 rounded-xl border border-slate-600 bg-slate-700/50"
         >
           <MaterialIcons name="logout" size={18} color="#cbd5e1" />
-          <Text className="text-slate-200 font-semibold">Logout</Text>
+          <Text className="text-slate-200 font-semibold">Sing Out</Text>
         </Pressable>
       </View>
 
-      {/* Main header */}
       <View className="px-6 mt-6">
         <Text className="text-center text-4xl font-extrabold tracking-tight text-slate-100">
           <Text className="text-indigo-400">Statistics</Text> Page
@@ -84,7 +82,6 @@ export default function StatisticsScreen() {
         <Text className="text-center text-slate-400 mt-1">Income vs Expense overview</Text>
       </View>
 
-      {/* Summary cards */}
       <View className="mx-6 mt-4 flex-row gap-3">
         <View className="flex-1 rounded-2xl bg-slate-800/80 border border-slate-700/50 p-4">
           <Text className="text-slate-400 text-xs">Income</Text>
@@ -98,7 +95,6 @@ export default function StatisticsScreen() {
         </View>
       </View>
 
-      {/* Net balance card */}
       <View className="mx-6 mt-3 rounded-2xl bg-slate-800/80 border border-slate-700/50 p-4">
         <Text className="text-slate-400 text-xs mb-2">Net balance</Text>
         <Text
@@ -110,7 +106,6 @@ export default function StatisticsScreen() {
           {Math.abs(stats.net)} RSD
         </Text>
 
-        {/* Horizontal comparison bars */}
         <View className="mt-4">
           <Text className="text-slate-300 mb-1">Income</Text>
           <View className="h-3 rounded-full bg-slate-700 overflow-hidden">
